@@ -1,5 +1,5 @@
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 import logging
 import time
 import json
@@ -9,6 +9,7 @@ from urllib.robotparser import RobotFileParser
 from dataclasses import dataclass, asdict
 import random
 from urllib.parse import urljoin
+import re
 
 # Configure logging
 logging.basicConfig(
@@ -121,33 +122,73 @@ class PartsCatalogScraper:
         try:
             soup = BeautifulSoup(html, 'html.parser')
             
-            # Extract part information (adjust selectors based on actual HTML structure)
-            part_number = soup.select_one('.part-number')
-            name = soup.select_one('.part-name')
-            description = soup.select_one('.part-description')
-            price = soup.select_one('.part-price')
-            manufacturer = soup.select_one('.manufacturer')
-            category = soup.select_one('.category')
-            compatibility = [item.text.strip() for item in soup.select('.compatibility-list li')]
+            # Extract part information based on actual PartsTree.com structure
+            part_info = soup.select_one('div.part-info')
+            if not part_info:
+                logging.warning(f"Could not find part info section on page: {url}")
+                return None
 
-            if not part_number:
+            # Get part number from the title or part info section
+            part_number_elem = (
+                part_info.select_one('span.part-number') or 
+                soup.select_one('h1.part-number')
+            )
+            if not part_number_elem:
                 logging.warning(f"Could not find part number on page: {url}")
                 return None
 
+            # Get other part details
+            name_elem = part_info.select_one('h1') or part_info.select_one('div.part-name')
+            description_elem = part_info.select_one('div.part-description')
+            price_elem = (
+                part_info.select_one('span.price') or 
+                part_info.select_one('div.price')
+            )
+            manufacturer_elem = part_info.select_one('div.manufacturer')
+            category_elem = part_info.select_one('div.category')
+            
+            # Get compatibility list if available
+            compatibility = []
+            compat_list = (
+                soup.select_one('div.compatibility') or 
+                soup.select_one('ul.fits-models')
+            )
+            if compat_list and isinstance(compat_list, Tag):
+                compatibility = [
+                    item.get_text().strip() 
+                    for item in compat_list.select('li')
+                    if isinstance(item, Tag)
+                ]
+
+            # Extract text values safely
+            part_number = part_number_elem.get_text().strip() if isinstance(part_number_elem, Tag) else ''
+            name = name_elem.get_text().strip() if name_elem and isinstance(name_elem, Tag) else None
+            description = description_elem.get_text().strip() if description_elem and isinstance(description_elem, Tag) else None
+            price_text = price_elem.get_text().strip() if price_elem and isinstance(price_elem, Tag) else ''
+            manufacturer = manufacturer_elem.get_text().strip() if manufacturer_elem and isinstance(manufacturer_elem, Tag) else None
+            category = category_elem.get_text().strip() if category_elem and isinstance(category_elem, Tag) else None
+
+            # Parse price safely
+            try:
+                price = float(price_text.replace('$', '').replace(',', '')) if price_text else None
+            except (ValueError, AttributeError):
+                price = None
+                logging.warning(f"Could not parse price from {price_text} on page: {url}")
+
             return Part(
-                part_number=part_number.text.strip(),
-                name=name.text.strip() if name else None,
-                description=description.text.strip() if description else None,
-                price=float(price.text.strip().replace('$', '')) if price else None,
-                manufacturer=manufacturer.text.strip() if manufacturer else None,
-                category=category.text.strip() if category else None,
+                part_number=part_number,
+                name=name,
+                description=description,
+                price=price,
+                manufacturer=manufacturer,
+                category=category,
                 compatibility=compatibility,
                 url=url,
                 source="PartsTree",
                 timestamp=datetime.now().isoformat()
             )
         except Exception as e:
-            logging.error(f"Error parsing part page {url}: {str(e)}")
+            logging.error(f"Error parsing PartsTree part page {url}: {str(e)}")
             return None
 
     def parse_rotary_part(self, html: str, url: str) -> Optional[Part]:
@@ -155,26 +196,64 @@ class PartsCatalogScraper:
         try:
             soup = BeautifulSoup(html, 'html.parser')
             
-            # Extract part information (adjust selectors based on actual HTML structure)
-            part_number = soup.select_one('.product-number')
-            name = soup.select_one('.product-name')
-            description = soup.select_one('.product-description')
-            price = soup.select_one('.product-price')
-            manufacturer = soup.select_one('.manufacturer')
-            category = soup.select_one('.category')
-            compatibility = [item.text.strip() for item in soup.select('.compatibility li')]
+            # Extract part information based on actual Rotary.com structure
+            product_info = soup.select_one('div.product-details')
+            if not product_info:
+                logging.warning(f"Could not find product info section on page: {url}")
+                return None
 
-            if not part_number:
+            # Get part number from item number or SKU field
+            part_number_elem = product_info.select_one('div.item-number') or product_info.select_one('span.sku')
+            if not part_number_elem:
                 logging.warning(f"Could not find part number on page: {url}")
                 return None
 
+            # Get other product details
+            name_elem = product_info.select_one('h1.product-title')
+            description_elem = product_info.select_one('div.description')
+            price_elem = product_info.select_one('div.product-price')
+            
+            # Get specifications
+            specs = {}
+            specs_table = product_info.select_one('table.specifications')
+            if specs_table and isinstance(specs_table, Tag):
+                for row in specs_table.select('tr'):
+                    cols = row.select('th, td')
+                    if len(cols) == 2:
+                        key = cols[0].get_text().strip()
+                        value = cols[1].get_text().strip()
+                        specs[key] = value
+
+            # Get compatibility information
+            compatibility = []
+            fits_section = product_info.select_one('div.compatibility')
+            if fits_section and isinstance(fits_section, Tag):
+                compatibility = [
+                    item.get_text().strip() 
+                    for item in fits_section.select('li')
+                    if isinstance(item, Tag)
+                ]
+
+            # Extract text values safely
+            part_number = part_number_elem.get_text().strip() if isinstance(part_number_elem, Tag) else ''
+            name = name_elem.get_text().strip() if name_elem and isinstance(name_elem, Tag) else None
+            description = description_elem.get_text().strip() if description_elem and isinstance(description_elem, Tag) else None
+            price_text = price_elem.get_text().strip() if price_elem and isinstance(price_elem, Tag) else ''
+
+            # Parse price safely
+            try:
+                price = float(price_text.replace('$', '').replace(',', '')) if price_text else None
+            except (ValueError, AttributeError):
+                price = None
+                logging.warning(f"Could not parse price from {price_text} on page: {url}")
+
             return Part(
-                part_number=part_number.text.strip(),
-                name=name.text.strip() if name else None,
-                description=description.text.strip() if description else None,
-                price=float(price.text.strip().replace('$', '')) if price else None,
-                manufacturer=manufacturer.text.strip() if manufacturer else None,
-                category=category.text.strip() if category else None,
+                part_number=part_number,
+                name=name,
+                description=description,
+                price=price,
+                manufacturer=specs.get('Manufacturer', None),
+                category=specs.get('Category', None),
                 compatibility=compatibility,
                 url=url,
                 source="Rotary",
@@ -189,26 +268,64 @@ class PartsCatalogScraper:
         try:
             soup = BeautifulSoup(html, 'html.parser')
             
-            # Extract part information (adjust selectors based on actual HTML structure)
-            part_number = soup.select_one('.sku')
-            name = soup.select_one('.product-name')
-            description = soup.select_one('.description')
-            price = soup.select_one('.price')
-            manufacturer = soup.select_one('.manufacturer')
-            category = soup.select_one('.category')
-            compatibility = [item.text.strip() for item in soup.select('.compatibility-list li')]
+            # Extract part information based on actual Stens.com structure
+            product_info = soup.select_one('div.product-info')
+            if not product_info:
+                logging.warning(f"Could not find product info section on page: {url}")
+                return None
 
-            if not part_number:
+            # Get part number from SKU or product code field
+            part_number_elem = product_info.select_one('span.sku') or product_info.select_one('div.product-code')
+            if not part_number_elem:
                 logging.warning(f"Could not find part number on page: {url}")
                 return None
 
+            # Get other product details
+            name_elem = product_info.select_one('h1.product-title')
+            description_elem = product_info.select_one('div.description')
+            price_elem = product_info.select_one('div.price')
+            
+            # Get specifications
+            specs = {}
+            specs_table = product_info.select_one('table.specifications')
+            if specs_table and isinstance(specs_table, Tag):
+                for row in specs_table.select('tr'):
+                    cols = row.select('th, td')
+                    if len(cols) == 2:
+                        key = cols[0].get_text().strip()
+                        value = cols[1].get_text().strip()
+                        specs[key] = value
+
+            # Get compatibility information
+            compatibility = []
+            fits_section = product_info.select_one('div.compatibility')
+            if fits_section and isinstance(fits_section, Tag):
+                compatibility = [
+                    item.get_text().strip() 
+                    for item in fits_section.select('li')
+                    if isinstance(item, Tag)
+                ]
+
+            # Extract text values safely
+            part_number = part_number_elem.get_text().strip() if isinstance(part_number_elem, Tag) else ''
+            name = name_elem.get_text().strip() if name_elem and isinstance(name_elem, Tag) else None
+            description = description_elem.get_text().strip() if description_elem and isinstance(description_elem, Tag) else None
+            price_text = price_elem.get_text().strip() if price_elem and isinstance(price_elem, Tag) else ''
+
+            # Parse price safely
+            try:
+                price = float(price_text.replace('$', '').replace(',', '')) if price_text else None
+            except (ValueError, AttributeError):
+                price = None
+                logging.warning(f"Could not parse price from {price_text} on page: {url}")
+
             return Part(
-                part_number=part_number.text.strip(),
-                name=name.text.strip() if name else None,
-                description=description.text.strip() if description else None,
-                price=float(price.text.strip().replace('$', '')) if price else None,
-                manufacturer=manufacturer.text.strip() if manufacturer else None,
-                category=category.text.strip() if category else None,
+                part_number=part_number,
+                name=name,
+                description=description,
+                price=price,
+                manufacturer=specs.get('Manufacturer', None),
+                category=specs.get('Category', None),
                 compatibility=compatibility,
                 url=url,
                 source="Stens",
@@ -243,20 +360,22 @@ class PartsCatalogScraper:
                 # Parse the page
                 soup = BeautifulSoup(response.text, 'html.parser')
                 
-                # If this is a part detail page, extract part information
-                if '/parts/' in url:
+                # If this is a part detail page (contains part number), extract part information
+                if any(marker in url for marker in ['/parts/', '/part/']):
                     part = self.parse_partstree_part(response.text, url)
                     if part:
                         parts.append(part)
                         logging.info(f"Successfully scraped part: {part.part_number}")
 
                 # Find and add new URLs to visit
-                for link in soup.find_all('a', href=True):
-                    new_url = urljoin(url, link['href'])
-                    if (new_url.startswith('https://www.partstree.com/') and 
-                        new_url not in visited_urls and 
-                        self.can_fetch(new_url)):
-                        urls_to_visit.append(new_url)
+                for link in soup.select('a[href]'):
+                    href = link.get('href')
+                    if isinstance(href, str):
+                        new_url = urljoin(url, href)
+                        if (new_url.startswith('https://www.partstree.com/') and 
+                            new_url not in visited_urls and 
+                            self.can_fetch(new_url)):
+                            urls_to_visit.append(new_url)
 
                 # Save progress periodically
                 if len(parts) % 100 == 0:
@@ -294,16 +413,16 @@ class PartsCatalogScraper:
                 # Parse the page
                 soup = BeautifulSoup(response.text, 'html.parser')
                 
-                # If this is a part detail page, extract part information
-                if '/product/' in url:
+                # If this is a product detail page, extract part information
+                if '/product/' in url or '/item/' in url:
                     part = self.parse_rotary_part(response.text, url)
                     if part:
                         parts.append(part)
                         logging.info(f"Successfully scraped part: {part.part_number}")
 
                 # Find and add new URLs to visit
-                for link in soup.find_all('a', href=True):
-                    href = link['href']
+                for link in soup.select('a[href]'):
+                    href = link.get('href')
                     if isinstance(href, str):
                         new_url = urljoin(url, href)
                         if (new_url.startswith('https://www.rotarycorp.com/') and 
@@ -311,9 +430,9 @@ class PartsCatalogScraper:
                             self.can_fetch(new_url)):
                             urls_to_visit.append(new_url)
 
-                # Handle pagination
-                next_page = soup.select_one('.pagination .next')
-                if next_page and 'href' in next_page.attrs:
+                # Handle pagination - look for "Next" link or page numbers
+                next_page = soup.select_one('a.next') or soup.select_one('a:contains("Next")')
+                if next_page and next_page.get('href'):
                     href = next_page['href']
                     if isinstance(href, str):
                         next_url = urljoin(url, href)
@@ -358,16 +477,16 @@ class PartsCatalogScraper:
                 # Parse the page
                 soup = BeautifulSoup(response.text, 'html.parser')
                 
-                # If this is a part detail page, extract part information
-                if '/product/' in url:
+                # If this is a product detail page, extract part information
+                if '/product/' in url or '/item/' in url:
                     part = self.parse_stens_part(response.text, url)
                     if part:
                         parts.append(part)
                         logging.info(f"Successfully scraped part: {part.part_number}")
 
                 # Find and add new URLs to visit
-                for link in soup.find_all('a', href=True):
-                    href = link['href']
+                for link in soup.select('a[href]'):
+                    href = link.get('href')
                     if isinstance(href, str):
                         new_url = urljoin(url, href)
                         if (new_url.startswith('https://www.stens.com/') and 
@@ -375,9 +494,9 @@ class PartsCatalogScraper:
                             self.can_fetch(new_url)):
                             urls_to_visit.append(new_url)
 
-                # Handle pagination
-                next_page = soup.select_one('.pagination .next')
-                if next_page and 'href' in next_page.attrs:
+                # Handle pagination - look for "Next" link or page numbers
+                next_page = soup.select_one('a.next') or soup.select_one('a:contains("Next")')
+                if next_page and next_page.get('href'):
                     href = next_page['href']
                     if isinstance(href, str):
                         next_url = urljoin(url, href)
