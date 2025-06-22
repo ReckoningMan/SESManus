@@ -1,0 +1,38 @@
+Tecumseh Model Guide
+
+1st DIGIT
+2nd & 3rd DIGIT
+4th DIGIT
+5th & 6th DIGIT
+7th DIGIT
+Crankshaft Position
+Horespower or 2-Cycle
+Primary Features
+Engine Variation Number
+Revision Letter
+8 - Vertical
+9 - Horizontal	00 = 2 Cycle
+02 = 3 HP
+03 = 3.5 HP
+04 = 4 HP
+05 = 5 HP
+06 = 6 HP
+07 = 7 HP
+08 = 8 HP
+10 = 10 HP
+12 = 12 HP
+14 = 14 HP
+16 = 16 HP
+18 = 18 HP	1 = Rotary Mower
+2 = Industrial
+3 = Snow King
+4 = Minibike
+5 = Tractor
+6 = Tiller
+7 = Rider	00 thru 99
+00 thru 99
+00 thru 99
+00 thru 99
+00 thru 99
+00 thru 99
+00 thru 99	 

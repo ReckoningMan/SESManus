@@ -1,0 +1,103 @@
+Briggs Stratton Model Guide
+
+
+
+
+
+
+
+
+
+1 OR 2 DIGITS INDICATE PISTON DISPLACEMENT	INDICATES BASIC DESIGN SERIES	INDICATES
+CRANKSHAFT POSITION
+CARBURETOR TYPE
+GOVERNOR TYPE
+INDICATES
+TYPE OF BEARING
+REDUCTION GEARS
+AUXILIARY DRIVES
+INDICATES TYPE OF STARTER
+6
+8
+9
+10
+11
+12
+13
+16
+17
+19
+22
+23
+24
+25
+76
+28
+29
+30
+32
+35
+40
+42
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+Q
+0—Horizontal shaft diaphragm carburetor (SG) pneumatic governor
+1—Horizontal shaft diaphragm carburetor (VJ) pneumatic governor
+2—Horizontal shaft diaphragm carburetor (PJ) pneumatic or mechanical governor
+3—Horizontal shaft float feed carburetor pneumatic governor
+4—Horizontal shaft float feed carburetor mechanical governor
+5—Vertical shaft diaphragm carburetor (VJ) pneumatic governor
+6—Open
+7—Vertical shaft float feed carburetor mechanical governor
+8—Vertical shaft float feed carburetor module fuel tank mechanical governor
+9—Vertical shaft model 13 Pulsa Jet carburetor mechanical governor model 9, Prime-N-Pull carburetor pneumatic governor
+0—Plain bearing, non-flange mount
+1—Plain bearing, flange bearing
+2—Sleeve bearing flange
+mounting splash lube
+3—Ball bearing flange mount splash lube
+4—Ball bearing, flange
+mounting pressure
+lubrication
+5—Plain bearing gear reduction (6 to 1) CCW rotation
+6—Plain bearing gear reduction
+7—Plain bearing mower deck mounting pressure lubrication
+8—Plain bearing (PTO) perpendicular to crankshaft
+9—Plain bearing auxiliary drive parallel to crankshaft
+0—Without starter
+1—Rope starter
+2—Rewind starter
+3—Electric starter only
+120 volt gear drive
+4—Electric starter only
+12 volt belt drive
+5—Electric starter only 12 volt gear drive
+6—Alternator only
+7—Electric starter 12 volt gear drive with alternator
+8—Vertical pull start or side pull starter
+(1) Digit 6 formerly used for “Wind-up” Starter on: 60000, 80000 & 92000 series.

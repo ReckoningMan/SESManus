@@ -1,0 +1,221 @@
+Engine Identification 1
+In order to obtain the correct replacement part(s), it is necessary to correctly identify the engine or piece of equipment. For replacement engine parts, the Model Number, Series or Type Number, and Serial Numbers are ALL needed. For equipment replacement parts, Model Numbers and Serial Numbers are needed to ensure proper replacement parts.
+
+Locations for Engine Model Information:
+• Stamped into the flywheel blower housing.
+• Stamped into the crankcase above the oil filler cap.
+• Stamped or printed on a tag located on the carburetor side of the blower housing.
+
+Equipment model and serial number location:
+
+These numbers are generally stamped into a metal tag which is attached to the main frame on the piece of equipment.
+
+These are common locations. Please refer to the drawing for additional help in locating model information.
+
+Sears
+The following is a list of model number prefixes which identify the various manufacturers of Sears equipment:
+113 - Shredder & Bagger
+131 - AYP
+143 - Tecumseh
+234 - Weedeater
+247- MTD
+358 - Poulan
+502 - Murray
+536 - Noma
+636 - Robin Trimmers
+663 - Air Cap
+809 - Noma
+917 - AYP
+EXAMPLE: Model # 917 - 253591
+
+The prefix (917) indicated that AYP manufactured this unit.
+
+
+
+
+
+Engine Identification 2
+In order to obtain the correct replacement part(s), it is necessary to correctly identify the engine or piece of equipment. For replacement engine parts, the Model Number, Series or Type Number, and Serial Numbers are ALL needed. For equipment replacement parts, Model Numbers and Serial Numbers are needed to ensure proper replacement parts.
+
+Locations for Engine Model Information:
+• Stamped into the flywheel blower housing.
+• Stamped into the crankcase above the oil filler cap.
+• Stamped or printed on a tag located on the carburetor side of the blower housing.
+
+Equipment model and serial number location:
+
+These numbers are generally stamped into a metal tag which is attached to the main frame on the piece of equipment.
+
+These are common locations. Please refer to the drawing for additional help in locating model information.
+
+Honda
+HP RATING	MODEL NUMBERS
+2.5	GX100, GXH50, G100K, GXH50, GXV50
+3.5	GX110, G30, G35, GV35, G150
+4.0	GX120, G40, G41, G42, GCV135, GV200
+4.5	GC135
+5.0	GCV160, GX140, GXV
+5.5	GC160, GX160, GXV160
+6.5	GX200, G65, GS65, G80, GXV200
+8.0	GX240, G300, GXV240, GXV2400
+9.0	GX270, GXV270
+10	G400
+11	GV400, GX340, GXV340
+13	GX390, GXV390
+18 (V-twin)	GX610, GXV610
+20 (V-twin)	GX620, GXV620
+24 (V-twin)	GX670, GXV670
+
+
+
+In order to obtain the correct replacement part(s), it is necessary to correctly identify the engine or piece of equipment. For replacement engine parts, the Model Number, Series or Type Number, and Serial Numbers are ALL needed. For equipment replacement parts, Model Numbers and Serial Numbers are needed to ensure proper replacement parts.
+
+Locations for Engine Model Information:
+• Stamped into the flywheel blower housing.
+• Stamped into the crankcase above the oil filler cap.
+• Stamped or printed on a tag located on the carburetor side of the blower housing.
+
+Equipment model and serial number location:
+
+These numbers are generally stamped into a metal tag which is attached to the main frame on the piece of equipment.
+
+These are common locations. Please refer to the drawing for additional help in locating model information.
+
+Briggs & Stratton
+HP RATING	MODEL NUMBERS
+2.0
+60100
+3.0
+62000, 80000, 82000, 83000, 90100, 92000
+3.5
+90000 thru 95000, 100000, 110000, 121700
+3.75
+96000, 98000
+4.0
+85000, 96000, 110000 thru 114000, 122000
+5.0
+99000, 104000, 124000, 126000, 128000,
+130000 thru 132000, 133000, 135000
+5.5
+115000, 129000
+6.0
+133700, 135700, 146000
+7.0
+170000, 171000, 176000
+8.0
+190000 thru 195000
+8.5
+196700
+9.0
+123000, 161000, 185000, 233400
+10.0
+220000 thru 222000, 243000
+11.0
+251000 thru 255000
+11.5
+259700
+12.0
+280000, 281000, 282000
+12.5
+286000, 290000
+13.0
+302000, 28M707
+14.0
+260000, 261000, 287700, 400000, 400400, 400700
+15.0
+28N707, 28Q777
+16.0
+303000, 326000, 401400, 401700, 402400,
+402700,
+404400, 404700
+18.0
+350000, 350700, 421400, 421700, 422400,
+422700
+20.0
+351000
+
+
+In order to obtain the correct replacement part(s), it is necessary to correctly identify the engine or piece of equipment. For replacement engine parts, the Model Number, Series or Type Number, and Serial Numbers are ALL needed. For equipment replacement parts, Model Numbers and Serial Numbers are needed to ensure proper replacement parts.
+
+Locations for Engine Model Information:
+• Stamped into the flywheel blower housing.
+• Stamped into the crankcase above the oil filler cap.
+• Stamped or printed on a tag located on the carburetor side of the blower housing.
+
+Equipment model and serial number location:
+
+These numbers are generally stamped into a metal tag which is attached to the main frame on the piece of equipment.
+
+These are common locations. Please refer to the drawing for additional help in locating model information.
+
+Tecumseh
+HP RATING	MODEL NUMBERS
+3	LAV30, TVS75
+3.5	LAV35, TVS90
+3.9	TNT100, TVS100, ECV100
+4	V40, OAV40, TVS105, TVXL105, VH40,
+VLV40, VLXL40
+4.5	OVRM905 (Sears only), OVRM40,
+OVRM45, TVS115 (Premier engine)
+5	OVRM50, V50, TVM125, LAV50, VH50,
+ULT50, VLV50, VLXL50
+5.5	LAV25, OVRM55, TVS120, ULT55, VLV55,
+VLXL55
+6	OVRM60, V60, TVM140, VH60, VLV60
+6.5	OVRM65, VLV65
+7	V70, VM70, TVM170, TVXL170, VH70
+8	VH80, V80, VM80, TVM195, TVM195,
+TVXL195
+10	LEV100, VH100, TVM220, VM100,
+TVM220,TVM220, TVXL220
+11	OHV110
+11.5	OHV115, LEV115
+12	OVM120, OVXL120, OVXL120 (I/C),
+OHV12, OVXL120 (Tec. 1200), OHV120
+12.5	OVXL125, OHV125, OVXL125 (Tec. 1250),
+OHV125
+13	OHV13, OHV130
+13.5	OHV135
+14	OHV14
+14.5	OHV145
+15	OHV15
+16	OHV16
+16.5	OHV165
+17
+OHV17
+
+In order to obtain the correct replacement part(s), it is necessary to correctly identify the engine or piece of equipment. For replacement engine parts, the Model Number, Series or Type Number, and Serial Numbers are ALL needed. For equipment replacement parts, Model Numbers and Serial Numbers are needed to ensure proper replacement parts.
+
+Locations for Engine Model Information:
+• Stamped into the flywheel blower housing.
+• Stamped into the crankcase above the oil filler cap.
+• Stamped or printed on a tag located on the carburetor side of the blower housing.
+
+Equipment model and serial number location:
+
+These numbers are generally stamped into a metal tag which is attached to the main frame on the piece of equipment.
+
+These are common locations. Please refer to the drawing for additional help in locating model information.
+
+Kohler
+HP RATING	MODEL NUMBERS
+4.9	K90, K91
+5.0	K121, C5
+6.0	K141, CH6
+7.0	K160, K161
+8.0	K181, M8
+10.0	K241, M10
+11.0	CV11
+12.0	K301, M12
+12.5	CV 12.5, CH12.5
+14.0	K321, M14, CV14, CH14
+16.0	K341, M16, MV16, CV16
+17.0	KT17
+18.0	K361, M18, MV18, CV18, CH18
+19.0	KT19
+20.0	K532, M20, MV20, CV20, CH20
+21.0	KT21
+22.0	CV22, CH22
+23.0	K582
+24.0	K660
+
